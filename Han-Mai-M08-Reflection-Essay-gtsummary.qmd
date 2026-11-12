@@ -18,6 +18,7 @@ format:
     slide-number: true
     scrollable: true
     smaller: true
+    auto-stretch: false
     code-fold: false
     code-overflow: wrap
     number-sections: false
@@ -452,6 +453,8 @@ There are 141 records on 78 dates. This historical platform extract is not a pro
 #| echo: false
 #| fig-width: 12
 #| fig-height: 5
+#| out-width: "90%"
+#| fig-alt: "Residuals versus fitted values and normal Q-Q plot for the logged-duration OLS model."
 par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
 plot(fit, which = 1, id.n = 0)
 plot(fit, which = 2, id.n = 0)
@@ -523,11 +526,11 @@ sandwich and lmtest supply the supplemental HC3 and clustered covariance checks.
 
 **GitHub Repository**
 
-https://github.com/hanamai111/ibm6500-m08-gtsummary-reflection
+[Open GitHub repository](https://github.com/hanamai111/ibm6500-m08-gtsummary-reflection)
 
 **GitHub Pages**
 
-https://hanamai111.github.io/ibm6500-m08-gtsummary-reflection/
+[Open published presentation](https://hanamai111.github.io/ibm6500-m08-gtsummary-reflection/)
 
 **Public source materials**
 
