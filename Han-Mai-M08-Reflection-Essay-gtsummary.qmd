@@ -1,0 +1,535 @@
+---
+title: "Summary Tables with gtsummary"
+subtitle: "M08 Reflection and CEP Application"
+author: "Han Mai"
+institute: "IBM 6500, Cal Poly Pomona"
+date: "2026-11-11"
+format:
+  revealjs:
+    theme: serif
+    width: 1600
+    height: 900
+    footer: "Han Mai | PhD Orthodontics CEP | IBM 6500"
+    transition: slide
+    transition-speed: default
+    incremental: false
+    toc: true
+    toc-depth: 1
+    slide-number: true
+    scrollable: true
+    smaller: true
+    code-fold: false
+    code-overflow: wrap
+    number-sections: false
+    embed-resources: true
+    css: styles.css
+editor: visual
+execute:
+  echo: true
+  freeze: auto
+  warning: false
+  message: false
+---
+
+# Module overview
+
+## Learning and application
+
+::: {.incremental}
+- Step 1: Dr. Jung's descriptive, comparative, and regression tables.
+- Step 2: Daniel Sjoberg's reproducible reporting workflow and extensions.
+- CEP application: 141 real Google Ads reported-call records, with measurement limits.
+:::
+
+The CEP survey remains in design/pretesting. This application concerns recorded call patterns and duration. It cannot answer the planned survey questions about trust or consultation intention.
+
+::: {.notes}
+Both lectures were reviewed through their complete captions/transcripts alongside the full lecture note before writing the reflection. Call records represent reported actions, not verified unique people or qualified inquiries.
+:::
+
+# Prompt 1
+
+## Prompt 1: capabilities and value
+
+::: {.prompt}
+**Prompt 1**
+
+In Step 1, you have seen how to create a summary table and modify it for various statistical analyses. Summarize the package's capabilities as explained by the speaker. How may the {gtsummary} benefit you for your school work or career?
+:::
+
+## Descriptive and comparative tables
+
+::: {.columns}
+::: {.column width="50%"}
+**Descriptive summaries**
+
+tbl_summary() summarizes a data frame and can split results with by. It recognizes continuous, categorical, and dichotomous variables. Defaults include median (Q1, Q3), counts, and percentages.
+
+Labels, type, statistic, digits, and missing-value arguments control the output. continuous2 allows several statistics on separate rows.
+:::
+::: {.column width="50%"}
+**Comparisons**
+
+tbl_cross() creates contingency tables with margins and chosen percentage denominators. add_p() supplies comparison p-values. add_overall() and add_n() add context and available sample sizes.
+
+Dr. Jung demonstrates Wilcoxon rank sum, Pearson chi-square, Welch t-tests, and proportion comparisons.
+:::
+:::
+
+::: {.source}
+Source: Jung, Step 1 note sections 3-6 and lecture, 15:35-1:37:30.
+:::
+
+## Testing and modeling
+
+- add_difference() reports differences with confidence intervals and p-values. Adjustment for grade and stage demonstrates ANCOVA.
+- tbl_regression() summarizes fitted logistic and OLS models. Exponentiating logistic coefficients produces odds ratios. OLS coefficients retain the modeled outcome scale.
+- tbl_uvregression() fits separate one-predictor models and combines their summaries. It does not estimate one jointly adjusted multiple regression.
+- add_global_p(), add_glance_table(), and add_vif() supply term-level tests, model information, or collinearity information in the examples.
+
+::: {.aside}
+Displaying mean/SD does not change add_p() to a t-test. I must inspect the test footnote and choose the analysis deliberately.
+:::
+
+::: {.source}
+Source: Jung, Step 1 sections 4.2 and 7-9. Lecture at 24:04-25:52 and 1:41:20-1:54:06.
+:::
+
+
+## Customization and publication
+
+::: {.incremental}
+- Labels, statistics, precision, and missing-value display make the table informative.
+- modify_header(), modify_spanning_header(), modify_footnote(), modify_caption(), and modify_fmt_fun() refine the output. bold_labels() and bold_p() emphasize selected content.
+- add_q() adjusts p-values for multiple comparisons in the Bonferroni and false-discovery-rate examples.
+- as_gt() enables gt formatting such as tab_header(). tbl_merge() combines columns and tbl_stack() combines rows.
+- Journal themes coordinate reporting defaults. Dr. Jung contrasts JAMA and Quarterly Journal of Economics styles and resets themes between examples.
+:::
+
+::: {.source}
+Source: Jung, Step 1 sections 4.4, 6.2, and 9-11.
+:::
+
+## Value for school and marketing analytics
+
+**School work.** I can keep the CEP analysis, tables, and explanation together in Quarto. When exclusions or coding change, tables recalculate. add_n() makes variable-specific missingness visible. Confidence intervals help me discuss uncertainty rather than only significance.
+
+**Career.** Campaign and consumer-research reports need consistent labels and explicit denominators. These tools reduce copying console output into Excel and the risk of reporting an outdated coefficient. I can spend more time checking measurement and explaining what the evidence supports.
+
+::: {.fragment}
+In my application, the location label's meaning remains uncertain even after formatting. A publishable table should communicate that limitation.
+:::
+
+::: {.notes}
+Connect the value of automation to accuracy. It does not make platform calls equivalent to qualified inquiries or patients.
+:::
+
+# Prompt 2
+
+## Prompt 2: extended presentation
+
+::: {.prompt}
+**Prompt 2**
+
+In Step 2, you watched the extended presentation of the {gtsummary} package by Dr. Daniel Dsjoberg, the very creator of the package.
+
+**Prompt 2.1:** How does it differ from gt and gtExtras?
+
+**Prompt 2.2:** Give three things you learned newly that were not explained in the lecture in Step 1.
+:::
+
+The speaker's name is Daniel Sjoberg. The prompt retains the instructor's wording.
+
+## 2.1: package roles
+
+| Package | Role | Example or source |
+|---|---|---|
+| gtsummary | Generates statistical summaries or organizes fitted-model results. | tbl_regression() creates a labeled regression table. |
+| gt | Renders and formats general tables. | Sjoberg uses as_gt(), column widths, and alignment (43:06-46:09). |
+| gtExtras | Adds helper functions and capabilities for gt tables. | The official package site describes wrappers around boilerplate and additional capabilities. |
+
+Sjoberg explains that gtsummary uses gt in the background (1:54-2:11). **The assigned recording does not discuss gtExtras.** I used its official documentation to complete this comparison, rather than attributing it to the speaker.
+
+::: {.source}
+Sources: Sjoberg (2021), Step 2. Supplemental source: [gtExtras official site](https://jthomasmock.github.io/gtExtras/).
+:::
+
+## 2.2: new learning 1, synchronized narrative
+
+**inline_text()** extracts formatted results from a gtsummary table for report prose (26:58-28:41).
+
+Sjoberg retrieves the age odds ratio, confidence interval, and p-value. The pattern argument customizes the text.
+
+Step 1 taught me to create tables. This adds a way to keep the written results synchronized. Below, I retrieve the hour coefficient directly from my regression table, reducing the risk that the sentence and table disagree after a revision.
+
+::: {.notes}
+Neither the complete Step 1 note nor lecture transcript demonstrates inline_text(). This is distinct from ordinary labels or formatting.
+:::
+
+## 2.2: new learning 2, stratified tables
+
+**tbl_strata()** applies a table-building function within groups and then merges or stacks the results (32:33-33:28).
+
+Sjoberg uses tumor grade as strata and generates a treatment summary within each grade. The new workflow is generating tables on subsets, beyond combining existing tables with tbl_merge() or tbl_stack().
+
+For future CEP survey work, I could summarize decision-role differences within each city if sample sizes permit. The current call records lack respondent city and decision role, so this remains a future use case.
+
+## 2.2: new learning 3, output engines
+
+**Alternative print engines** separate statistical table construction from document formatting (43:02-46:09).
+
+Sjoberg discusses gt, kable, flextable, kableExtra, huxtable, and tibble. He recommends flextable for Word and illustrates obtaining LaTeX through huxtable.
+
+Step 1 demonstrates as_gt(). The broader engine selection is new to me. I would use HTML/gt for this revealjs assignment and evaluate Word-oriented output for client collaboration.
+
+::: {.aside}
+His comments about incomplete gt PDF/RTF support describe 2021 software, not a current compatibility test.
+:::
+
+
+# Prompt 3
+
+## Prompt 3: association in real CEP data
+
+::: {.prompt}
+**Prompt 3**
+
+Apply what you learned to your MSDM CEP data. Choose two appropriate variables for cross-tabulation and show if the two variables are associated or not. Use appropriate statistics to test if the two variables are associated. Code, produce the table, and interpret the result.
+:::
+
+## Data provenance and suitability
+
+**Source:** PhD Orthodontics Google Ads package, calls_UI_analysis.csv, extracted October 15, 2026. Selected package window: May 7-October 14, Pacific time.
+
+**Unit:** one reported call record. N = 141 records, not verified unique people. Original fields are a record key, Pacific timestamp, seconds of duration, and caller-location label. No original field has NA values.
+
+The current CEP methods say survey responses have not yet been collected. Shared Drive raw/cleaned folders were empty. I also inspected the real 107-row campaign-day export. It does not supply respondent variables or validated inquiry outcomes. Call metadata therefore supports a narrow exploratory application.
+
+::: {.source}
+Source: [Group 6 CEP methods and data dictionary, modified November 2](https://sheilaaa0312.github.io/Group-6-PhD-Orthodontics/cep-group-6-report.html#survey-data), plus the actual source CSV.
+:::
+
+## Variables and coding choices
+
+| Variable | Definition | Relevance |
+|---|---|---|
+| Day type | Monday-Friday versus Saturday/Sunday, from Pacific timestamp. | Natural calendar distinction for reviewing call coverage, without assuming opening hours. |
+| Broad location label | California-identifying labels versus other/unspecified labels. | Consolidates rare geography cells and preserves uncertainty in national-only labels. |
+
+**Other/unspecified does not mean outside California.** These derived metadata categories do not establish residence. I group small geography categories to reduce disclosure of rare city/state cells.
+
+The question is whether recorded location-label composition differs by day type. Unknown repeat callers remain a limitation of independence.
+
+## Data preparation code
+
+```{r}
+#| label: prepare-calls
+library(gtsummary)
+library(dplyr)
+library(gt)
+input <- Sys.getenv("CEP_CALLS_CSV")
+stopifnot(nzchar(input), file.exists(input))
+raw <- read.csv(input)
+stopifnot(nrow(raw) == 141, !anyNA(raw))
+dt <- as.POSIXct(raw$date_time_pacific,
+  format = "%Y-%m-%dT%H:%M", tz = "America/Los_Angeles")
+stopifnot(!anyNA(dt), all(raw$duration_seconds >= 0))
+```
+
+Private input stays outside the repository. This presentation never prints record keys, exact timestamps, or source rows.
+
+## Derived analysis variables
+
+```{r}
+#| label: derive-metadata
+d <- data.frame(
+  duration = raw$duration_seconds,
+  hour = as.POSIXlt(dt)$hour + as.POSIXlt(dt)$min / 60,
+  weekpart = factor(ifelse(as.POSIXlt(dt)$wday %in% c(0, 6),
+    "Weekend", "Weekday"), levels = c("Weekday", "Weekend")),
+  location = factor(ifelse(grepl("California|, CA$",
+    raw$caller_location_label), "California label",
+    "Other or unspecified label"),
+    levels = c("California label", "Other or unspecified label"))
+)
+```
+
+No duration threshold defines a successful call. Zero-second records remain because their meaning is unvalidated.
+
+## Association test and assumptions
+
+```{r}
+#| label: test-association
+xt <- table(d$location, d$weekpart)
+expected <- suppressWarnings(chisq.test(xt))$expected
+expected
+fisher_result <- fisher.test(xt)
+```
+
+The smallest expected count is **3.97**. One of four cells (25%) is below five, so I use a **two-sided Fisher exact test** instead of the chi-square approximation.
+
+Fisher addresses sparse cells. It does not establish independent callers or representative sampling. Its p-value is conditional on independent records.
+
+## Publishable cross-tab code
+
+```{r}
+#| label: build-cross-table
+#| results: hide
+cross_tbl <- d |>
+  tbl_cross(row = location, col = weekpart, percent = "column",
+    label = list(location ~ "Broad caller-location label",
+      weekpart ~ "Call day type")) |>
+  add_p(test = "fisher.test",
+    pvalue_fun = label_style_pvalue(digits = 2)) |>
+  bold_labels()
+cross_gt <- cross_tbl |> as_gt() |>
+  tab_header(title = md("**Table 1. Recorded call timing and location labels**"),
+    subtitle = "PhD Orthodontics Google Ads reported calls") |>
+  tab_source_note("Column percentages. Two-sided Fisher exact test. N = 141 call records.") |>
+  tab_options(table.font.size = px(28), data_row.padding = px(10))
+```
+
+## Table 1: timing and location labels
+
+```{r}
+#| label: show-cross-table
+#| echo: false
+cross_gt
+```
+
+Other/unspecified combines national-only and other-state labels. It cannot identify nonlocal patients.
+
+## Statistical and practical interpretation
+
+::: {.columns}
+::: {.column width="50%"}
+**Statistical conclusion**
+
+California labels account for **91/127 (71.7%)** weekday records and **10/14 (71.4%)** weekend records.
+
+Fisher exact **p = 1.00**. At alpha = .05, this analysis does not provide sufficient evidence of an association. It does not establish equivalence.
+:::
+::: {.column width="50%"}
+**CEP implication**
+
+This extract gives no evidence supporting different geographic messaging by day type. Only 14 weekend records limit what can be learned.
+
+Validate call outcomes and metadata before scheduling or targeting changes. Call volume also depends on ad delivery and exposure.
+:::
+:::
+
+::: {.notes}
+These are recorded actions rather than unique people. Do not infer residence, inquiry quality, or causal effects.
+:::
+
+
+# Prompt 4
+
+## Prompt 4: multiple regression
+
+::: {.prompt}
+**Prompt 4**
+
+Using the MSDM CEP data, run multiple regression. The dependent variable can be continuous or dichotomous. Regress a dependent variable on a set of independent variables. Code, produce the table, and interpret the result.
+:::
+
+## Model specification
+
+**Question:** How is recorded call duration associated with call time, day type, and broad location label?
+
+**Outcome:** ln(duration in seconds + 1). Median duration is 61 seconds (IQR 16-125), range 0-1,063. Eight zero-second records remain. The log transformation reduces right-skew without creating a binary outcome.
+
+**Predictors:** Pacific hour (continuous), weekend versus weekday, and other/unspecified versus California label. The model has three slopes and an intercept, with 141 complete observations.
+
+This exploratory multiple OLS model concerns recorded duration. It cannot estimate consultation intention, lead quality, or the future survey model.
+
+## Regression code
+
+```{r}
+#| label: fit-model
+#| results: hide
+fit <- lm(log1p(duration) ~ hour + weekpart + location, data = d)
+tidy_hc3 <- function(x, conf.int = TRUE, conf.level = .95, ...) {
+  ct <- lmtest::coeftest(x,
+    vcov. = sandwich::vcovHC(x, type = "HC3"))
+  out <- broom::tidy(ct)
+  critical <- qt(1 - (1 - conf.level) / 2, df.residual(x))
+  out$conf.low <- out$estimate - critical * out$std.error
+  out$conf.high <- out$estimate + critical * out$std.error
+  out
+}
+robust_results <- tidy_hc3(fit)
+```
+
+HC3 responds to observed unequal residual variance. Sjoberg demonstrates custom tidy_fun support, but this HC3 implementation is supplemental analysis, not a lecture claim. It cannot correct unidentified repeat callers.
+
+## Regression table code
+
+```{r}
+#| label: build-regression-table
+#| results: hide
+reg_tbl <- tbl_regression(fit, tidy_fun = tidy_hc3,
+  label = list(hour ~ "Pacific hour (per hour later)",
+    weekpart ~ "Call day type",
+    location ~ "Broad caller-location label"),
+  estimate_fun = label_style_number(digits = 2),
+  pvalue_fun = label_style_pvalue(digits = 2)) |>
+  bold_labels() |> bold_p(t = .05)
+reg_gt <- reg_tbl |> as_gt() |>
+  tab_header(title = md("**Table 2. Associations with logged call duration**")) |>
+  tab_source_note("OLS beta for ln(seconds + 1). HC3 SEs and t-based 95% CIs. N = 141.") |>
+  tab_source_note("References: weekday and California label. Exploratory, noncausal model.") |>
+  tab_options(table.font.size = px(28), data_row.padding = px(9))
+```
+
+## Table 2: multiple OLS results
+
+```{r}
+#| label: show-regression-table
+#| echo: false
+reg_gt
+```
+
+R-squared = `r round(summary(fit)$r.squared, 3)` and adjusted R-squared = `r round(summary(fit)$adj.r.squared, 3)`. These describe in-sample fit, not external predictive performance.
+
+## Coefficient interpretation
+
+- **Other/unspecified label:** beta = -2.43, HC3 95% CI [-2.93, -1.93], p < .001, relative to California labels. Holding hour and day type constant, the modeled logged duration is lower. exp(beta) is approximately 0.088, a ratio on the duration-plus-one scale, not an odds ratio.
+- **Hour:** beta = 0.055, 95% CI [-0.029, 0.139], p = .198. Each hour later corresponds to that expected change in the logged outcome, holding other predictors constant.
+- **Weekend:** beta = -0.346, 95% CI [-0.922, 0.231], p = .238 relative to weekday, holding hour and location label constant.
+
+Only the location-label contrast is significant among the slopes at .05. Time effects remain uncertain. No coefficient establishes causality.
+
+## Synchronized narrative with inline_text()
+
+```{r}
+#| label: demonstrate-inline
+#| results: hide
+hour_text <- inline_text(reg_tbl, variable = hour,
+  pattern = "beta = {estimate}, 95% CI {conf.low} to {conf.high}, p = {p.value}")
+```
+
+Holding day type and broad location label constant, the hour association is **`r hour_text`**.
+
+This retrieves the same formatted result shown in Table 2. If I update the model, the narrative updates too. This directly applies a new Step 2 workflow and reduces manual transcription.
+
+## Diagnostic code
+
+```{r}
+#| label: diagnostics
+#| results: hide
+bp <- lmtest::bptest(fit)
+reset <- lmtest::resettest(fit)
+normality <- shapiro.test(residuals(fit))
+max_cook <- max(cooks.distance(fit))
+mm <- model.matrix(fit)[, -1, drop = FALSE]
+vifs <- sapply(seq_len(ncol(mm)), function(j) {
+  1 / (1 - summary(lm(mm[, j] ~ mm[, -j]))$r.squared)
+})
+cluster_ct <- lmtest::coeftest(fit,
+  vcov. = sandwich::vcovCL(fit, cluster = as.Date(dt), type = "HC1"),
+  df = length(unique(as.Date(dt))) - 1)
+```
+
+Same-day clustered sensitivity checks shared-date dependence without publishing dates. It cannot correct repeat callers across days.
+
+## Diagnostics and limitations
+
+| Check | Result | Implication |
+|---|---|---|
+| Functional form | RESET p = `r round(reset$p.value, 3)` | No detected failure by this test, not proof of linearity. |
+| Residual variance | Breusch-Pagan p = `r formatC(bp$p.value, format = 'f', digits = 6)` | HC3 uncertainty replaces constant-variance standard errors. |
+| Normality | Shapiro-Wilk p = `r signif(normality$p.value, 3)` | Residuals remain nonnormal. Interpret cautiously. |
+| Collinearity | Maximum VIF = `r round(max(vifs), 2)` | No strong collinearity detected. |
+| Influence | Largest Cook distance = `r round(max_cook, 3)` | Influential records warrant review. No significance-based deletion. |
+
+There are 141 records on 78 dates. This historical platform extract is not a probability sample. Normality, independence, outcome validity, and external generalization remain limitations.
+
+## Residual inspection
+
+```{r}
+#| label: diagnostic-plots
+#| echo: false
+#| fig-width: 12
+#| fig-height: 5
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+plot(fit, which = 1, id.n = 0)
+plot(fit, which = 2, id.n = 0)
+```
+
+Unlabeled residual diagnostics contain no caller identifiers or timestamps. HC3 addresses unequal variance, but does not repair measurement errors or establish independence.
+
+## Sensitivity and CEP meaning
+
+```{r}
+#| label: cluster-summary
+#| echo: false
+broom::tidy(cluster_ct) |>
+  filter(term != "(Intercept)") |>
+  mutate(term = c("Pacific hour", "Weekend", "Other/unspecified label")) |>
+  select(Predictor = term, Beta = estimate, `Cluster SE` = std.error, `p-value` = p.value) |>
+  gt() |> fmt_number(columns = c(Beta, `Cluster SE`), decimals = 3) |>
+  fmt(columns = `p-value`, fns = function(x) style_pvalue(x, digits = 2)) |>
+  tab_header(title = "Sensitivity: standard errors clustered by call date") |>
+  tab_options(table.font.size = px(26))
+```
+
+The location contrast could reflect routing, metadata specificity, or short/zero calls. It cannot show that nonlocal prospects are less valuable. Validate labels and inquiry outcomes before changing audience exclusions, budget, or call coverage.
+
+
+# Key takeaways
+
+## What I will carry into the CEP
+
+::: {.incremental}
+- Match the statistic and table to the measurement level and observational unit.
+- Check missingness, sparse cells, and model behavior before formatting.
+- Keep code, tables, and prose synchronized with tbl_cross(), tbl_regression(), as_gt(), and inline_text().
+- Preserve the distinction between calls, inquiries, bookings, and patients.
+:::
+
+For the future survey, I will assess dimensionality and reliability before forming composites. The current CEP plan specifically keeps information-quality facets separate.
+
+# References
+
+## Course sources
+
+- Jung, Jae (2026). [Summary table with gtsummary](https://jaejungca.github.io/gtsummary/M08-Customizable%20Tables-gtsummary.html), October 30. Entire note, sections 1-12.
+- Jung, Jae. [Publishable Modeling Results Summary Table with gtsummary](https://streaming.cpp.edu/embed/secure/iframe/entryId/1_94dlhnul/uiConfId/52359092/st/0), assigned Step 1 lecture. Displayed duration 2:04:41.
+- Sjoberg, Daniel (2021). [Presentation-ready Summary Tables with gtsummary](https://www.youtube.com/watch?v=tANo9E1SYJE), Weill Cornell Computing Club, April 27. Full 52:17 presentation and Q&A. [Speaker slides](https://www.danieldsjoberg.com/gtsummary-weill-cornell-presentation/).
+- [gtsummary summary-table documentation](https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html) and [regression documentation](https://www.danieldsjoberg.com/gtsummary/articles/tbl_regression.html), linked by the Step 1 note.
+
+## Supplemental and CEP sources
+
+- Mock, Thomas. [gtExtras official documentation](https://jthomasmock.github.io/gtExtras/). Used only for Prompt 2.1 because the assigned recording does not discuss this package.
+- Group 6 (2026). [PhD Orthodontics CEP methods and dictionary](https://sheilaaa0312.github.io/Group-6-PhD-Orthodontics/cep-group-6-report.html#sec-ch3-methods), modified November 2. Survey status and measurement decisions.
+- PhD Orthodontics Google Ads package, October 15, 2026. Restricted calls_UI_analysis.csv. Access to the source is required to reproduce calculations. Restricted row-level records remain outside the public repository.
+
+sandwich and lmtest supply the supplemental HC3 and clustered covariance checks.^[Robust standard errors cannot identify or correct unknown repeated callers across dates.]
+
+# Appendix
+
+## Reproducibility and privacy
+
+- Open **M08.Rproj** first.
+- Install gtsummary, dplyr, gt, broom, lmtest, sandwich, and quarto from CRAN as needed.
+- Set CEP_CALLS_CSV to an authorized local copy of calls_UI_analysis.csv outside the repository.
+- Render Han-Mai-M08-Reflection-Essay-gtsummary.qmd. HTML embeds resources.
+- Public output includes code and aggregate statistical results. Exact call timestamps, record keys, identifiers, and row-level data stay private.
+
+**Data caveat:** uncertainty calculations require assumptions about independent records. Unique caller identity and verified inquiry outcomes are unavailable. These results support exploration and measurement QA.
+
+## GitHub links
+
+**GitHub Repository**
+
+https://github.com/hanamai111/ibm6500-m08-gtsummary-reflection
+
+**GitHub Pages**
+
+https://hanamai111.github.io/ibm6500-m08-gtsummary-reflection/
+
+**Public source materials**
+
+[Step 1 lecture note](https://jaejungca.github.io/gtsummary/M08-Customizable%20Tables-gtsummary.html) and [Step 2 presentation](https://www.youtube.com/watch?v=tANo9E1SYJE)
+

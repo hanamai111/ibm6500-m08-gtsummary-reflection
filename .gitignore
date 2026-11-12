@@ -1,0 +1,11 @@
+.Rproj.user/
+.Rhistory
+.RData
+.Renviron
+*.csv
+*.rds
+*.sav
+*.xlsx
+_freeze/
+*_files/
+preview*.log

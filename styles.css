@@ -1,0 +1,13 @@
+.reveal {font-size:30px;color:#26332e;}
+.reveal h1 {font-size:2.1em;color:#184b3b;}
+.reveal h2 {font-size:1.45em;color:#184b3b;border-bottom:2px solid #c5b77a;padding-bottom:.2em;}
+.reveal p,.reveal li {line-height:1.35;}
+.reveal .slides section {padding-bottom:45px;}
+.reveal pre {font-size:.62em;box-shadow:none;border:1px solid #ddd;}
+.reveal table {font-size:.78em;width:100%;}
+.reveal th {color:#184b3b;}
+.prompt {border-left:5px solid #a99a59;padding:.4em .9em;background:#f4f3ec;}
+.source {font-size:.62em;color:#56665e;margin-top:1em;}
+.reveal .footer {font-size:16px;bottom:10px;}
+.reveal .aside {font-size:.7em;}
+.reveal img {max-height:570px;}
